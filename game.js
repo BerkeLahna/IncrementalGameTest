@@ -1,5 +1,5 @@
 let soldiers = 0;
-let money = 1000;
+let money = 9990;
 let Gun = 10;
 let GunPrice = 10;
 let automationLevel = 0; // Start with no automation
@@ -38,7 +38,7 @@ function updateDisplay() {
     // Disable buy automation button if not enough money
     let automationCost = automationCostBase * Math.pow(automationCostScale, automationLevel);
     document.getElementById('buy-automation').disabled = (money < automationCost);
-    document.getElementById('buy-automation').textContent = `Buy Automation (Cost: $${automationCost.toFixed(2)}) - Produces ${automationLevel + 1} soldier(s)/sec`;
+    document.getElementById('buy-automation').textContent = `Buy Automation (Cost: $${automationCost.toFixed(2)}) - Produces ${automationLevel} soldier(s)/sec`;
 
     // Disable buy Gun upgrade button if not enough money
     let GunUpgradeCost = GunUpgradeBaseCost * Math.pow(GunUpgradeScale, GunUpgradeLevel);
@@ -140,8 +140,7 @@ function buyAutomation() {
 }
 
 function startAutomation() {
-    let productionInterval = Math.max(1000 / (automationLevel + 1), 1000);
-    soldierProductionInterval = setInterval(() => produceSoldier(automationLevel + 1), productionInterval);
+    soldierProductionInterval = setInterval(() => produceSoldier(automationLevel ), 1000);
 }
 
 function buyGunUpgrade() {
