@@ -84,3 +84,10 @@ p {
     }
 }
 
+#war-bet-input {
+    padding: 10px; 
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    width: 35%; 
+    box-sizing: border-box; }
+
