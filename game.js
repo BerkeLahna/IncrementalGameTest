@@ -21,7 +21,7 @@ const GunUpgradeScale = 2; // Scaling factor for Gun upgrade cost
 
 function updateDisplay() {
     document.getElementById('soldiers-count').textContent = `Soldiers: ${soldiers}`;
-    document.getElementById('money-count').textContent = `Money: $${money}`;
+    document.getElementById('money-count').textContent = `Money: $${money.toFixed(2)}`;
     document.getElementById('Gun-count').textContent = `Gun: ${Gun}`;
     document.getElementById('Gun-cost').textContent = `Current Gun Price: $${GunPrice}`;
     document.getElementById('marketing-level').textContent = `Marketing Level: ${marketingLevel} (Cost: $${50 * marketingLevel})`;
