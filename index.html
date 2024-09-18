@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="tooltip" style="position: absolute; display: none; background-color: #333; color: #fff; padding: 5px; border-radius: 3px; font-size: 12px;"></div>
+
     <div id="message-box" class="message-box">
         <!-- Messages will appear here -->
     </div>
@@ -45,9 +47,20 @@
             <input type="number" id="war-bet-input" min="0" step="1" placeholder="Bet amount">
         <p>
         </p>
-            <button onclick="startWar('low')">Low Risk - Low Reward</button>
-            <button onclick="startWar('medium')">Medium Risk - Medium Reward</button>
-            <button onclick="startWar('high')">High Risk - High Reward</button>
+            <button 
+                onmouseenter="showDynamicTooltip(event, 0.4, 1.2)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()" onclick="startWar('low')">Low Risk - Low Reward
+            </button>
+            <button 
+                onmouseenter="showDynamicTooltip(event, 0.7, 1.5)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()" onclick="startWar('medium')">Medium Risk - Medium Reward
+            </button>
+            <button 
+                onmouseenter="showDynamicTooltip(event, 0.95, 2)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()"  onclick="startWar('high')">High Risk - High Reward
+            </button>
+
+        
+            <p id="war-odds1">Better Odds:</p>
+            <button id="war-odds" onclick="increaseOdds()">Increase Odds</button>
+
         </div>
     </div>
     <script src="game.js"></script>

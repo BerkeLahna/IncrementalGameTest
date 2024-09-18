@@ -9,6 +9,8 @@ let GunPriceInterval = null;
 let soldierPrice = 10;
 let GunUpgradeLevel = 1;
 let GunUpgradeCost = 200;
+let odds = 0.0;
+let oddsCost = 200;
 
 const baseSellRate = 20;  // Lower base rate
 const pricePenalty = 0.5; // Increase penalty for higher prices
@@ -21,7 +23,7 @@ const GunUpgradeScale = 2; // Scaling factor for Gun upgrade cost
 
 function updateDisplay() {
     document.getElementById('soldiers-count').textContent = `Soldiers: ${soldiers}`;
-    document.getElementById('money-count').textContent = `Money: $${money.toFixed(2)}`;
+    document.getElementById('money-count').textContent = `Money: $${money.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.')}`;
     document.getElementById('Gun-count').textContent = `Gun: ${Gun}`;
     document.getElementById('Gun-cost').textContent = `Current Gun Price: $${GunPrice}`;
     document.getElementById('marketing-level').textContent = `Marketing Level: ${marketingLevel} (Cost: $${50 * marketingLevel})`;
@@ -45,7 +47,94 @@ function updateDisplay() {
     let GunUpgradeCost = GunUpgradeBaseCost * Math.pow(GunUpgradeScale, GunUpgradeLevel);
     document.getElementById('buy-Gun-upgrade').disabled = (money < GunUpgradeCost);
     document.getElementById('Gun-upgrade-level').textContent = `Gun Upgrade Level: ${GunUpgradeLevel} (Cost: $${GunUpgradeCost})`;
+
+    document.getElementById('war-odds1').textContent = `Increased odds of winning by: ${odds*100}%`;
+    document.getElementById('war-odds').textContent = `Increase odds of winning ${"Cost: $"+oddsCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.')}`;
+    // document.getElementById('war-odds').disabled = (money < oddsCost);
+    // document.getElementById('war-odds').disabled = (odds > 0.4);
+    updateOddsButton();
+    const tooltip = document.getElementById('tooltip');
+
+
 }
+
+let tooltipTimeout;
+
+function showDynamicTooltip(event, risk, multiplier) {
+    const dynamicOdds = (1-(risk - odds)) * 100;
+    showTooltip(event, `Odds: ${dynamicOdds.toFixed(2)}%, Multiplier: ${multiplier}`);
+}
+
+// Function to show the tooltip
+function showTooltip(event, message) {
+    tooltip.textContent = message;
+    tooltip.style.display = 'block';
+    tooltip.style.opacity = 1;
+    positionTooltip(event);
+    tooltipVisible = true; // Mark tooltip as visible
+}
+
+function hideTooltip() {
+    if (!tooltipVisible) return; // Only hide if the tooltip is currently visible
+    tooltip.style.opacity = 0;
+    setTimeout(() => {
+        if (!tooltipVisible) { // Only hide the tooltip if it's not visible anymore
+            tooltip.style.display = 'none';
+        }
+    }, 200); // Wait for the fade-out transition
+}
+
+
+// Function to position the tooltip properly without glitching
+function positionTooltip(event) {
+    const tooltipWidth = tooltip.offsetWidth;
+    const tooltipHeight = tooltip.offsetHeight;
+    const margin = 10; // Margin between cursor and tooltip
+
+    // Calculate tooltip position (make sure it stays within the window)
+    let left = event.pageX + margin;
+    let top = event.pageY + margin;
+
+    // Prevent tooltip from going off-screen
+    if (left + tooltipWidth > window.innerWidth) {
+        left = event.pageX - tooltipWidth - margin;
+    }
+    if (top + tooltipHeight > window.innerHeight) {
+        top = event.pageY - tooltipHeight - margin;
+    }
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+}
+
+// Update button state and attach tooltip event listeners
+function updateOddsButton() {
+    const oddsButton = document.getElementById('war-odds');
+    
+    if (odds > 0.4) {
+        oddsButton.disabled = true;
+        oddsButton.addEventListener('mousemove', (event) => {
+            showTooltip(event, "Max level reached");
+            positionTooltip(event);  // Update the position as the mouse moves
+        });
+        oddsButton.addEventListener('mouseleave', hideTooltip);
+    }else if (money < oddsCost) {
+        oddsButton.disabled = true;
+        oddsButton.addEventListener('mousemove', (event) => {
+            showTooltip(event, "Not enough money");
+            positionTooltip(event);  // Update the position as the mouse moves
+        });
+        oddsButton.addEventListener('mouseleave', hideTooltip);
+    }   else {
+        oddsButton.disabled = false;
+        oddsButton.removeEventListener('mousemove', showTooltip);
+        oddsButton.removeEventListener('mouseleave', hideTooltip);
+        hideTooltip();
+    }
+}
+
+
+
 
 function produceSoldier(amount) {
     for (let i = 0; i < amount; i++) {
@@ -106,7 +195,8 @@ function buyGun() {
 
 function updateGunPrice() {
     GunPrice = Math.floor(Math.random() * 26) + 5; // Randomize price between $5 and $30
-    console.log(`New Gun Price: $${GunPrice}`);
+    // console.log(`New Gun Price: $${GunPrice}`);
+    addMessage(`New Gun Price: $${GunPrice}`);
     updateDisplay();
 }
 
@@ -155,10 +245,23 @@ function buyGunUpgrade() {
 function startSelling() {
     soldierSellInterval = setInterval(sellSoldiers, 500); // Sell soldiers every second
 }
+
+function increaseOdds() {
+    if (money >= oddsCost && odds < 0.4) {  // Corrected the parentheses
+        odds += 0.01;
+        money -= oddsCost;
+        oddsCost *= 1.5;
+        addMessage(`Increased odds of winning by: ${(odds * 100).toFixed(2)}%`);
+        updateDisplay();
+        updateOddsButton();
+    }
+}
+
+
 const warOptions = {
-    low: { risk: 0.4, rewardMultiplier: 1.2 },
-    medium: { risk: 0.7, rewardMultiplier: 1.5 },
-    high: { risk: 0.95, rewardMultiplier: 2 },
+    low: { risk: 0.4-odds, rewardMultiplier: 1.2 },
+    medium: { risk: 0.7-odds, rewardMultiplier: 1.5 },
+    high: { risk: 0.95-odds, rewardMultiplier: 2 },
 };
 
 const maxMessages = 5;
@@ -211,7 +314,8 @@ function startWar(riskLevel) {
     }
 
     const { risk, rewardMultiplier } = warOptions[riskLevel];
-    const win = Math.random() > risk;
+    const win = Math.random() > risk-odds; // Adjusted win probability based on odds
+    addMessage(`You are participating in a ${riskLevel} risk war with a bet of ${"$"+betAmount} and odds of ${(1-(risk-odds))*100}%.`);
 
     if (win) {
         // Win scenario
@@ -220,7 +324,7 @@ function startWar(riskLevel) {
     } else {
         // Lose scenario
         money -= betAmount;
-        soldiers -= 5; // Example loss of 5 soldiers
+        soldiers -= 5; 
         addMessage(`You lost! You have lost ${"$"+betAmount} and 5 soldiers. `);
     }
 
