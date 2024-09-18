@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soldier Factory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="message-box" class="message-box">
+        <!-- Messages will appear here -->
+    </div>
+    <div class="container">
+        <div id="game-content" class="content-box">
+
+            <h1>Soldier Factory</h1>
+            <p id="soldiers-count">Soldiers: 0</p>
+            <p id="money-count">Money: $0</p>
+
+            <button id="produce-soldier" onclick="produceSoldier(1)">Produce Soldier (Cost: 1 Gun)</button>
+            <p id="Gun-count">Gun: 10</p>
+            <p id="Gun-cost">Current Gun Price: $10</p>
+            <button id="buy-Gun" onclick="buyGun()">Buy Gun</button>
+
+            <h3>Set Soldier Price:</h3>
+            <input type="number" id="price-input" value="10" min="0.1" step="0.1" onchange="updatePrice()">
+        </div>
+        <div id="upgrades-content" class="content-box">
+            <h1>Upgrades</h1>
+            <h3>Marketing:</h3>
+            <p id="marketing-level">Marketing Level: 1 (Cost: $50)</p>
+            <button id="buy-marketing" onclick="buyMarketing()">Buy Marketing</button>
+
+            <h3>Automation:</h3>
+            <p id="automation-status">Automation: Not purchased</p>
+            <button id="buy-automation" onclick="buyAutomation()">Buy Automation (Cost: $100) - Produces 1 soldier/sec</button>
+
+            <h3>Gun Upgrade:</h3>
+            <p id="Gun-upgrade-level">Gun Upgrade Level: 1 (Cost: $200)</p>
+            <button id="buy-Gun-upgrade" onclick="buyGunUpgrade()">Buy Gun Upgrade</button>
+        </div>
+        <div id="war-content" class="content-box">
+            <h1>Go to War</h1>
+            <p id="war-status">Bet money and choose your risk level:</p>
+            <input type="number" id="war-bet-input" min="0" step="1" placeholder="Bet amount">
+        <p>
+        </p>
+            <button onclick="startWar('low')">Low Risk - Low Reward</button>
+            <button onclick="startWar('medium')">Medium Risk - Medium Reward</button>
+            <button onclick="startWar('high')">High Risk - High Reward</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
