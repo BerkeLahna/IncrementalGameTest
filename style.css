@@ -112,6 +112,41 @@ p {
      border: 5px solid black;
 }
 
+
+
+.upgrade-container div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Media query for larger screens */
 @media (min-width: 768px) {
     .content-box {

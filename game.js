@@ -12,6 +12,11 @@ let GunUpgradeCost = 200;
 let odds = 0.0;
 let oddsCost = 200;
 let tooltipVisible = false;
+let Science = 0;
+const vialIconPath = 'vial.webp';
+
+
+
 
 const baseSellRate = 20;  // Lower base rate
 const pricePenalty = 0.5; // Increase penalty for higher prices
@@ -51,12 +56,13 @@ function updateDisplay() {
     document.getElementById('Gun-upgrade-level').textContent = `Gun Upgrade Level: ${GunUpgradeLevel} (Cost: $${GunUpgradeCost})`;
 
     document.getElementById('war-odds1').textContent = `Increased odds of winning by: ${odds*100}%`;
-    document.getElementById('war-odds').textContent = `Increase odds of winning ${"Cost: $"+oddsCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.')}`;
+    document.getElementById('war-odds').innerHTML = `Increase odds of winning ${"Cost: " + oddsCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.') + ' <img src="' + vialIconPath + '" alt="Technology" style="width:16px; vertical-align:middle;">'}`;
     // document.getElementById('war-odds').disabled = (money < oddsCost);
     // document.getElementById('war-odds').disabled = (odds > 0.4);
     updateOddsButton();
     const tooltip = document.getElementById('tooltip');
 
+    document.getElementById('Science').innerHTML = `<img src="${vialIconPath}" alt="Technology" style="width:16px; vertical-align:middle;">: ${Science}`;
 
 }
 
