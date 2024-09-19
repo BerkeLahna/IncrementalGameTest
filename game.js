@@ -317,7 +317,7 @@ function startWar(riskLevel) {
 
     const { risk, rewardMultiplier } = warOptions[riskLevel];
     const win = Math.random() > risk-odds; // Adjusted win probability based on odds
-    addMessage(`You are participating in a ${riskLevel} risk war with a bet of ${"$"+betAmount} and odds of ${(1-(risk-odds))*100}%.`);
+    addMessage(`You are participating in a ${riskLevel} risk infiltration with a bet of ${"$"+betAmount} and odds of ${(1-(risk-odds))*100}%.`);
 
     if (win) {
         // Win scenario

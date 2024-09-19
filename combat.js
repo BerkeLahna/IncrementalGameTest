@@ -7,10 +7,10 @@ const context = canvas.getContext('2d');
 let playerSoldiers = [];
 let enemySoldiers = [];
 let bullets = [];
-let baseSpeed = 1;
+let baseSpeed = 0.1;
 let baseCombat = 1;
 let hazardRemediation = 1;
-let combatSoldiers = 1;
+let combatSoldiers = 300;
 
 // Reset speed and combat for each combat
 let speed = baseSpeed;
@@ -127,7 +127,7 @@ document.getElementById('startCombat').addEventListener('click', () => {
         // Randomize x within right 20% of the canvas, and random y within the canvas height
         const x = canvas.width * 0.8 + Math.random() * (canvas.width * 0.2);  // X between 80% and 100% of canvas width
         const y = Math.random() * canvas.height;  // Y between 0 and canvas height
-        const enemySpeed = Math.floor(Math.random() * 6) + speed;  // Random speed for enemies
+        const enemySpeed = Math.floor(Math.random() * 6)/10 + speed;  // Random speed for enemies
         const enemyCombat = Math.floor(Math.random() * 6) + combat;  // Random combat for enemies
         enemySoldiers.push(new Soldier(x, y, enemySpeed, enemyCombat, false));
     }

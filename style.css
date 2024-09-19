@@ -168,15 +168,16 @@ p {
     #combatCanvas {
         width: 100%;
         height: auto;
+        border: 3px solid black;
     }
     button {
         padding: 5px 10px;
         margin: 5px;
         background-color: #008cba;
         color: white;
-        font-size: 0.7em;
+        font-size: 0.75em;
         border: none;
-        border-radius: 5px;
+        border-radius: 10px;
         cursor: pointer;
     }
     input[type="number"] {
