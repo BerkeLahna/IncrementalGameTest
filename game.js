@@ -11,6 +11,7 @@ let GunUpgradeLevel = 1;
 let GunUpgradeCost = 200;
 let odds = 0.0;
 let oddsCost = 200;
+let tooltipVisible = false;
 
 const baseSellRate = 20;  // Lower base rate
 const pricePenalty = 0.5; // Increase penalty for higher prices
@@ -23,6 +24,7 @@ const GunUpgradeScale = 2; // Scaling factor for Gun upgrade cost
 
 function updateDisplay() {
     document.getElementById('soldiers-count').textContent = `Soldiers: ${soldiers}`;
+    document.getElementById('price-input').value = `${soldierPrice}`;
     document.getElementById('money-count').textContent = `Money: $${money.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.')}`;
     document.getElementById('Gun-count').textContent = `Gun: ${Gun}`;
     document.getElementById('Gun-cost').textContent = `Current Gun Price: $${GunPrice}`;
@@ -340,6 +342,7 @@ function startWar(riskLevel) {
 
 function saveGame() {
     localStorage.setItem('soldiers', soldiers);
+    localStorage.setItem('soldierPrice', soldierPrice);
     localStorage.setItem('money', money);
     localStorage.setItem('Gun', Gun);
     localStorage.setItem('GunPrice', GunPrice);
@@ -348,10 +351,13 @@ function saveGame() {
     localStorage.setItem('GunUpgradeLevel', GunUpgradeLevel);
     localStorage.setItem('odds', odds);
     localStorage.setItem('oddsCost', oddsCost);
+    console.log("Game saved successfully."); // Log save action
+
 }
 
 function loadGame() {
     soldiers = parseInt(localStorage.getItem('soldiers')) || 0;
+    soldierPrice = parseFloat(localStorage.getItem('soldierPrice')) || 10;
     money = parseFloat(localStorage.getItem('money')) || 0;
     Gun = parseInt(localStorage.getItem('Gun')) || 10; // Default Gun value
     GunPrice = parseInt(localStorage.getItem('GunPrice')) || 10; // Default Gun Price
