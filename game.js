@@ -374,8 +374,14 @@ function loadGame() {
 
 
 
+
 setInterval(saveGame, 5000);
 loadGame();
 updateDisplay();
 startSelling();
 startGunPriceChange();
+
+
+// Start the game
+initSoldiers();
+gameLoop();

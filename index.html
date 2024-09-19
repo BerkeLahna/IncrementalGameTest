@@ -42,7 +42,7 @@
             <button id="buy-Gun-upgrade" onclick="buyGunUpgrade()">Buy Gun Upgrade</button>
         </div>
         <div id="war-content" class="content-box">
-            <h1>Go to War</h1>
+            <h1>Infiltration</h1>
             <p id="war-status">Bet money and choose your risk level:</p>
             <input type="number" id="war-bet-input" min="0" step="1" placeholder="Bet amount">
         <p>
@@ -62,7 +62,36 @@
             <button id="war-odds" onclick="increaseOdds()">Increase Odds</button>
 
         </div>
+        <div id="combat-content" class="content-box">
+            <h1>Combat</h1>
+
+            <canvas id="combatCanvas" width="%20" height="%20" style="background-color: grey; border: 5px solid black;"></canvas>
+
+        <div id="upgrade-panel">
+            <h3>Soldier Upgrades</h3>
+            <div>
+                <label>Speed: <span id="speed-level">1</span></label>
+                <button onclick="upgrade('speed')">Upgrade</button>
+            </div>
+            <div>
+                <label>Combat: <span id="combat-level">1</span></label>
+                <button onclick="upgrade('combat')">Upgrade</button>
+            </div>
+            <div>
+                <label>Hazard Remediation: <span id="hazard-level">1</span></label>
+                <button onclick="upgrade('hazard')">Upgrade</button>
+            </div>
+            <div>
+                <label>Soldiers: <span id="hazard-level">1</span></label>
+                <button onclick="upgrade('soldiers')">Upgrade</button>
+            </div>
+            <button id="startCombat">Start Combat</button>
+
+</div>
+</div>
     </div>
     <script src="game.js"></script>
+    <script src="combat.js"></script>
+
 </body>
 </html>
