@@ -10,10 +10,11 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    flex-wrap: wrap; /* Allow wrapping */
+
 }
 
 .content-box {
-    width: 45%;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -24,6 +25,8 @@ h1 {
     font-size: 24px;
     margin-bottom: 20px;
 }
+
+
 
 button {
     padding: 10px 20px;
@@ -102,4 +105,84 @@ p {
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s ease;
+}
+
+#combatCanvas{
+
+     background-color: grey; 
+     border: 5px solid black;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    .content-box {
+        width: 45%; /* Keep the same width for larger screens */
+    }
+}
+
+
+/* Adjustments for mobile grid layout */
+@media (max-width: 767px) {
+    .container {
+        padding: 8px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+    }
+    .content-box {
+        padding: 8px;
+    }
+    h1 {
+        font-size: 1em;
+        margin-bottom: 15x;
+    }
+    h3 {
+        font-size: 1em;
+        margin-bottom: 15x;
+    }
+    p {
+        font-size: 0.8em;
+    }
+    label {
+        font-size: 0.8em;
+    }
+    .message-box {
+        width: 92%;
+        max-height: 50px; /* Adjust as needed */
+        overflow-y: auto;
+        margin: 5px;
+        border: 2px solid grey;
+        background-color: black;
+        color: white;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: -5px;
+        font-size: 0.8em;
+        text-align: left;
+        display: flex;
+        flex-direction: column-reverse; /* New messages appear at the bottom */
+    }
+    
+    .message-box p {
+        margin: 0;
+        line-height: 1.2;
+    }
+    #combatCanvas {
+        width: 100%;
+        height: auto;
+    }
+    button {
+        padding: 5px 10px;
+        margin: 5px;
+        background-color: #008cba;
+        color: white;
+        font-size: 0.7em;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="number"] {
+        width: 30%;
+        padding: 10px;
+        font-size: 0.8em;
+    }
 }

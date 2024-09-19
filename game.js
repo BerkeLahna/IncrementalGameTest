@@ -382,6 +382,3 @@ startSelling();
 startGunPriceChange();
 
 
-// Start the game
-initSoldiers();
-gameLoop();
