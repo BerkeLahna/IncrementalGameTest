@@ -331,6 +331,45 @@ function startWar(riskLevel) {
     updateDisplay();
 }
 
+
+
+
+
+
+
+
+function saveGame() {
+    localStorage.setItem('soldiers', soldiers);
+    localStorage.setItem('money', money);
+    localStorage.setItem('Gun', Gun);
+    localStorage.setItem('GunPrice', GunPrice);
+    localStorage.setItem('automationLevel', automationLevel);
+    localStorage.setItem('marketingLevel', marketingLevel);
+    localStorage.setItem('GunUpgradeLevel', GunUpgradeLevel);
+    localStorage.setItem('odds', odds);
+    localStorage.setItem('oddsCost', oddsCost);
+}
+
+function loadGame() {
+    soldiers = parseInt(localStorage.getItem('soldiers')) || 0;
+    money = parseFloat(localStorage.getItem('money')) || 0;
+    Gun = parseInt(localStorage.getItem('Gun')) || 10; // Default Gun value
+    GunPrice = parseInt(localStorage.getItem('GunPrice')) || 10; // Default Gun Price
+    automationLevel = parseInt(localStorage.getItem('automationLevel')) || 0;
+    marketingLevel = parseInt(localStorage.getItem('marketingLevel')) || 1; // Default Marketing Level
+    GunUpgradeLevel = parseInt(localStorage.getItem('GunUpgradeLevel')) || 1; // Default Gun Upgrade Level
+    odds = parseFloat(localStorage.getItem('odds')) || 0.0;
+    oddsCost = parseFloat(localStorage.getItem('oddsCost')) || 200; // Default odds cost
+}
+
+
+
+
+
+
+
+setInterval(saveGame, 5000);
+loadGame();
 updateDisplay();
 startSelling();
 startGunPriceChange();
