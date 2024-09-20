@@ -80,35 +80,123 @@
         <div id="upgrade-panel">
             <h3>Soldier Upgrades</h3>
             <div class="upgrade-container">
-
-            <div>
-                <label>Speed: <span id="speed-level">1</span></label>
-                <button onclick="upgrade('speed')">Upgrade</button>
+        
+                <div class="upgrade-item">
+                    <p>Speed: <span id="speed-level">1</span></p>
+                    <div id="upgrade-buttons">
+                        <button class="assign-btn" id="speed-general-assign" onclick="assignGeneralsToUpgrade('speed')">Assign General</button>
+                        <button class="remove-btn" id="speed-general-remove" disabled onclick="removeGeneralsFromUpgrade('speed')">Remove General</button>
+                    </div>
+                    <div class="circular-progress-container">
+                        <svg class="circular-progress" viewBox="0 0 36 36">
+                            <path class="progress-bg" d="M18 2.08a 15.92 15.92 0 1 1 0 31.83 15.92 15.92 0 1 1 0-31.83"/>
+                            <path id="speed-upgrade-progress" class="progress" stroke-dasharray="0, 100" d="M18 2.08a 15.92 15.92 0 1 1 0 31.83 15.92 15.92 0 1 1 0-31.83"/>
+                        </svg>
+                        <div class="progress-text"><span id="speed-upgrade-timer">0</span>s</div>
+                    </div>
+                    <div class="general-count">
+                        🎖️ <span id="speed-general-count">0</span>
+                    </div>
+                </div>
+                <div class="upgrade-item">
+                    
+                    <p>Combat: <span id="combat-level">1</span></p>
+                    <div id="upgrade-buttons">
+                    <button class="assign-btn" id="combat-general-assign" onclick="assignGeneralsToUpgrade('combat')">Assign General</button>
+                    <button class="remove-btn" id="combat-general-remove" disabled onclick="removeGeneralsFromUpgrade('combat')">Remove General</button>
+                </div>
+                <div class="circular-progress-container">
+                    <svg class="circular-progress" viewBox="0 0 36 36">
+                      <path class="progress-bg" d="M18 2.08a 15.92 15.92 0 1 1 0 31.83 15.92 15.92 0 1 1 0-31.83"/>
+                      <path id="combat-upgrade-progress" class="progress" stroke-dasharray="0, 100" d="M18 2.08a 15.92 15.92 0 1 1 0 31.83 15.92 15.92 0 1 1 0-31.83"/>
+                    </svg>
+                    <div class="progress-text"><span id="combat-upgrade-timer">0</span>s</div>
+                  </div>
+                  <div class="general-count">
+                    🎖️ <span id="combat-general-count">0</span>
+                </div>
+                                  </div>
+        
+                    <div class="upgrade-item">
+                    <p>HP: <span id="hp-level">1</span></p>
+                    <div id="upgrade-buttons">
+                    <button class="assign-btn" id="hp-general-assign" onclick="assignGeneralsToUpgrade('hp')">Assign General</button>
+                    <button class="remove-btn" id="hp-general-remove" disabled onclick="removeGeneralsFromUpgrade('hp')">Remove General</button>
+                </div>
+                <div class="circular-progress-container">
+                    <svg class="circular-progress" viewBox="0 0 36 36">
+                      <path class="progress-bg" d="M18 2.08a 15.92 15.92 0 1 1 0 31.83 15.92 15.92 0 1 1 0-31.83"/>
+                      <path id="hp-upgrade-progress" class="progress" stroke-dasharray="0, 100" d="M18 2.08a 15.92 15.92 0 1 1 0 31.83 15.92 15.92 0 1 1 0-31.83"/>
+                    </svg>
+                    <div class="progress-text"><span id="hp-upgrade-timer">0</span>s</div>
+                  </div>
+                  <div class="general-count">
+                    🎖️ <span id="hp-general-count">0</span>
+                </div>
+                  
+                            </div>
+        
+                <div class="upgrade-item">
+                    <p>Resilience: <span id="hazard-level">1</span></p>
+                    <div id="upgrade-buttons">
+                    <button class="assign-btn" id="hazard-general-assign" onclick="assignGeneralsToUpgrade('hazard')">Assign General</button>
+                    <button class="remove-btn" id="hazard-general-remove" disabled onclick="removeGeneralsFromUpgrade('hazard')">Remove General</button>
+                </div>
+                <div class="circular-progress-container">
+                    <svg class="circular-progress" viewBox="0 0 36 36">
+                      <path class="progress-bg" d="M18 2.08a 15.92 15.92 0 1 1 0 31.83 15.92 15.92 0 1 1 0-31.83"/>
+                      <path id="hazard-upgrade-progress" class="progress" stroke-dasharray="0, 100" d="M18 2.08a 15.92 15.92 0 1 1 0 31.83 15.92 15.92 0 1 1 0-31.83"/>
+                    </svg>
+                    <div class="progress-text"><span id="hazard-upgrade-timer">0</span>s</div>
+                  </div>
+                  <div class="general-count">
+                    🎖️ <span id="hazard-general-count">0</span>
+                </div>
+                                  </div>
+                <div class="upgrade-item">
+                    <p>Soldiers: <span id="soldiers-level">1</span></p>
+                    <div id="upgrade-buttons">
+                    <button class="assign-btn" id="soldiers-general-assign" oonclick="assignGeneralsToUpgrade('soldiers')">Assign General</button>
+                    <button class="remove-btn" id="soldiers-general-remove" disabled onclick="removeGeneralsFromUpgrade('soldiers')">Remove General</button>
+                </div>
+                <div class="circular-progress-container">
+                    <svg class="circular-progress" viewBox="0 0 36 36">
+                      <path class="progress-bg" d="M18 2.08a 15.92 15.92 0 1 1 0 31.83 15.92 15.92 0 1 1 0-31.83"/>
+                      <path id="soldiers-upgrade-progress" class="progress" stroke-dasharray="0, 100" d="M18 2.08a 15.92 15.92 0 1 1 0 31.83 15.92 15.92 0 1 1 0-31.83"/>
+                    </svg>
+                    <div class="progress-text"><span id="soldiers-upgrade-timer">0</span>s</div>
+                  </div>
+                  <div class="general-count">
+                    🎖️ <span id="soldiers-general-count">0</span>
+                </div>
+                                  </div>
             </div>
-            <div>
-                <label>Combat: <span id="combat-level">1</span></label>
-                <button onclick="upgrade('combat')">Upgrade</button>
-            </div>
-            <div>
-                <label>HP: <span id="hp-level">1</span></label>
-                <button onclick="upgrade('hp')">Upgrade</button>
-            </div>
-            <div>
-                <label>Resilience: <span id="hazard-level">1</span></label>
-                <button onclick="upgrade('hazard')">Upgrade</button>
-            </div>
-            <div>
-                <label>Soldiers: <span id="soldiers-level">1</span></label>
-                <button onclick="upgrade('soldiers')">Upgrade</button>
-            </div>
-            </div>
-            <button id="startCombat">Start Combat</button>
+            <button id="startCombat" class="start-btn">Start Combat</button>
 
         </div>
+        
 </div>
+<div id="combat-content" class="content-box">
+            <h1>Generals</h1>
+            <h3>Buy Generals</h3>
+            <p>Generals: <span id="generals-count">0</span></p>
+            <button id="buy-general" onclick="buyGeneral()">Buy General (Cost: 10 Science)</button>
+            <!-- <h3>Upgrade Sections</h3> -->
+            <!-- <div>
+                <p>Speed Upgrade Progress: <span id="speed-upgrade-progress">0%</span></p>
+                <button onclick="assignGeneralToUpgrade('speed')">Assign General to Speed Upgrade</button>
+                <p>Combat Upgrade Progress: <span id="combat-upgrade-progress">0%</span></p>
+                <button onclick="assignGeneralToUpgrade('combat')">Assign General to Combat Upgrade</button>
+                <p>HP Upgrade Progress: <span id="hp-upgrade-progress">0%</span></p>
+                <button onclick="assignGeneralToUpgrade('hp')">Assign General to HP Upgrade</button>
+            </div> -->
+</div>
+
     </div>
     <script src="game.js"></script>
     <script src="combat.js"></script>
+    <script src="generals.js"></script>
+
 
 </body>
 </html>

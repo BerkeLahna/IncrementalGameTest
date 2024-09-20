@@ -125,7 +125,61 @@ p {
     align-items: center;
 }
 
+.upgrade-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    margin: auto;
+}
+.upgrade-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.upgrade-item p {
+    margin: 0;
+    font-size: 0.86em;
+    color: #333;
+    flex-grow: 1;
+}
+#upgrade-buttons {
+    display: flex;
+    gap: 8px;
+}
 
+.assign-btn,
+.remove-btn {
+    background-color: #008cba;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.assign-btn:hover {
+    background-color: #005f8a;
+}
+
+.remove-btn {
+    background-color: #ff5c5c;
+}
+
+.remove-btn:hover {
+    background-color: #cc4949;
+}
 
 
 .upgrade-container div {
@@ -142,15 +196,81 @@ p {
 }
 
 
+#upgrade-buttons{
+   display: flex;
+   flex-direction: column;   
+   align-items: center;
+}
+#upgrade-buttons button{
+    margin: 5px;
+    padding: 5px 10px;
+    
+    border-radius: 5px;
+}
+
+
+.circular-progress-container {
+     position: relative;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 5px;
+}
+
+.circular-progress {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg); /* Rotate to make progress start from the top */
+}
+
+.progress-bg {
+    fill: none;
+    stroke: #eee; /* Background color */
+    stroke-width: 3.8;
+}
+
+.progress {
+    fill: none;
+    stroke: #4caf50; /* Progress color */
+    stroke-width: 3.8;
+    stroke-linecap: round; /* Smooth the ends of the progress arc */
+    transition: stroke-dasharray 0.2s ease; /* Animate the progress change */
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+/* General count below the circular progress */
+.general-count {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+}
 
 
 
 
+/* Start combat button */
+.start-btn {
+    padding: 12px 20px;
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+}
 
-
-
-
-
+.start-btn:hover {
+    background-color: #218838;
+}
 
 
 
@@ -179,35 +299,33 @@ p {
     }
 }
 
-@media (min-width: 1640px) {
-
-    .overlay {
-
-        right: 14%;
-
-    }
-}
-
-
-@media (min-width: 1840px) {
-
-    .overlay {
-
-        right: 18%;
-
-    }
-}
 
 @media (min-width: 2040px) {
 
     .overlay {
 
-        right: 20%;
+        right: 14%;
  
     }
-}
+} 
 
 
+@media (min-width: 2340px) {
+
+    .overlay {
+
+        right: 18%;
+ 
+    }
+} 
+@media (min-width: 2540px) {
+
+    .overlay {
+
+        right: 22%;
+ 
+    }
+} 
 
 
 
@@ -291,5 +409,43 @@ p {
         width: 30%;
         padding: 10px;
         font-size: 0.8em;
+    }
+    .upgrade-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 150px;
+        margin: auto;
+    }
+    #upgrade-buttons button{
+        margin: 2px;
+        padding: 5px 10px;
+        font-size: 0.6em;
+        border-radius: 5px;
+    }
+    .upgrade-item p {
+        margin: 0;
+        font-size: 0.56em;
+        color: #333;
+        flex-grow: 1;
+    }
+    .general-count {
+        font-size: 0.6em;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .progress-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 13px;
+        font-weight: bold;
+        color: #333;
     }
 }

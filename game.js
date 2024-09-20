@@ -12,7 +12,7 @@ let GunUpgradeCost = 200;
 let odds = 0.0;
 let oddsCost = 2;
 let tooltipVisible = false;
-let Science = 0;
+let Science = 1000;
 const vialIconPath = 'vial.webp';
 
 
@@ -63,6 +63,11 @@ function updateDisplay() {
     const tooltip = document.getElementById('tooltip');
 
     document.getElementById('Science').innerHTML = `<img src="${vialIconPath}" alt="Technology" style="width:16px; vertical-align:middle;">: ${Science.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.')}`;
+
+
+
+
+
 
 }
 
@@ -346,45 +351,45 @@ function startWar(riskLevel) {
 
 
 
-function saveGame() {
-    localStorage.setItem('soldiers', soldiers);
-    localStorage.setItem('soldierPrice', soldierPrice);
-    localStorage.setItem('money', money);
-    localStorage.setItem('Gun', Gun);
-    localStorage.setItem('GunPrice', GunPrice);
-    localStorage.setItem('automationLevel', automationLevel);
-    localStorage.setItem('marketingLevel', marketingLevel);
-    localStorage.setItem('GunUpgradeLevel', GunUpgradeLevel);
-    localStorage.setItem('odds', odds);
-    localStorage.setItem('oddsCost', oddsCost);
-    localStorage.setItem('Science', Science);
-    console.log("Game saved successfully."); // Log save action
+// function saveGame() {
+//     localStorage.setItem('soldiers', soldiers);
+//     localStorage.setItem('soldierPrice', soldierPrice);
+//     localStorage.setItem('money', money);
+//     localStorage.setItem('Gun', Gun);
+//     localStorage.setItem('GunPrice', GunPrice);
+//     localStorage.setItem('automationLevel', automationLevel);
+//     localStorage.setItem('marketingLevel', marketingLevel);
+//     localStorage.setItem('GunUpgradeLevel', GunUpgradeLevel);
+//     localStorage.setItem('odds', odds);
+//     localStorage.setItem('oddsCost', oddsCost);
+//     localStorage.setItem('Science', Science);
+//     console.log("Game saved successfully."); // Log save action
 
-}
+// }
 
-function loadGame() {
-    soldiers = parseInt(localStorage.getItem('soldiers')) || 0;
-    soldierPrice = parseFloat(localStorage.getItem('soldierPrice')) || 10;
-    money = parseFloat(localStorage.getItem('money')) || 0;
-    Gun = parseInt(localStorage.getItem('Gun')) || 10; // Default Gun value
-    GunPrice = parseInt(localStorage.getItem('GunPrice')) || 10; // Default Gun Price
-    automationLevel = parseInt(localStorage.getItem('automationLevel')) || 0;
-    marketingLevel = parseInt(localStorage.getItem('marketingLevel')) || 1; // Default Marketing Level
-    GunUpgradeLevel = parseInt(localStorage.getItem('GunUpgradeLevel')) || 1; // Default Gun Upgrade Level
-    odds = parseFloat(localStorage.getItem('odds')) || 0.0;
-    oddsCost = parseFloat(localStorage.getItem('oddsCost')) || 2; // Default odds cost
-    Science = parseInt(localStorage.getItem('Science')) || 0;
-}
-
-
+// function loadGame() {
+//     soldiers = parseInt(localStorage.getItem('soldiers')) || 0;
+//     soldierPrice = parseFloat(localStorage.getItem('soldierPrice')) || 10;
+//     money = parseFloat(localStorage.getItem('money')) || 0;
+//     Gun = parseInt(localStorage.getItem('Gun')) || 10; // Default Gun value
+//     GunPrice = parseInt(localStorage.getItem('GunPrice')) || 10; // Default Gun Price
+//     automationLevel = parseInt(localStorage.getItem('automationLevel')) || 0;
+//     marketingLevel = parseInt(localStorage.getItem('marketingLevel')) || 1; // Default Marketing Level
+//     GunUpgradeLevel = parseInt(localStorage.getItem('GunUpgradeLevel')) || 1; // Default Gun Upgrade Level
+//     odds = parseFloat(localStorage.getItem('odds')) || 0.0;
+//     oddsCost = parseFloat(localStorage.getItem('oddsCost')) || 2; // Default odds cost
+//     Science = parseInt(localStorage.getItem('Science')) || 0;
+// }
 
 
 
 
 
 
-setInterval(saveGame, 5000);
-loadGame();
+
+
+// setInterval(saveGame, 5000);
+// loadGame();
 updateDisplay();
 startSelling();
 startGunPriceChange();
