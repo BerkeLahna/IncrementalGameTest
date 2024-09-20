@@ -10,7 +10,7 @@ let soldierPrice = 10;
 let GunUpgradeLevel = 1;
 let GunUpgradeCost = 200;
 let odds = 0.0;
-let oddsCost = 200;
+let oddsCost = 2;
 let tooltipVisible = false;
 let Science = 0;
 const vialIconPath = 'vial.webp';
@@ -62,7 +62,7 @@ function updateDisplay() {
     updateOddsButton();
     const tooltip = document.getElementById('tooltip');
 
-    document.getElementById('Science').innerHTML = `<img src="${vialIconPath}" alt="Technology" style="width:16px; vertical-align:middle;">: ${Science}`;
+    document.getElementById('Science').innerHTML = `<img src="${vialIconPath}" alt="Technology" style="width:16px; vertical-align:middle;">: ${Science.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.')}`;
 
 }
 
@@ -255,9 +255,9 @@ function startSelling() {
 }
 
 function increaseOdds() {
-    if (money >= oddsCost && odds < 0.4) {  // Corrected the parentheses
+    if (Science >= oddsCost && odds < 0.4) {  // Corrected the parentheses
         odds += 0.01;
-        money -= oddsCost;
+        Science -= oddsCost;
         oddsCost *= 1.5;
         addMessage(`Increased odds of winning by: ${(odds * 100).toFixed(2)}%`);
         updateDisplay();
@@ -357,6 +357,7 @@ function saveGame() {
     localStorage.setItem('GunUpgradeLevel', GunUpgradeLevel);
     localStorage.setItem('odds', odds);
     localStorage.setItem('oddsCost', oddsCost);
+    localStorage.setItem('Science', Science);
     console.log("Game saved successfully."); // Log save action
 
 }
@@ -371,7 +372,8 @@ function loadGame() {
     marketingLevel = parseInt(localStorage.getItem('marketingLevel')) || 1; // Default Marketing Level
     GunUpgradeLevel = parseInt(localStorage.getItem('GunUpgradeLevel')) || 1; // Default Gun Upgrade Level
     odds = parseFloat(localStorage.getItem('odds')) || 0.0;
-    oddsCost = parseFloat(localStorage.getItem('oddsCost')) || 200; // Default odds cost
+    oddsCost = parseFloat(localStorage.getItem('oddsCost')) || 2; // Default odds cost
+    Science = parseInt(localStorage.getItem('Science')) || 0;
 }
 
 

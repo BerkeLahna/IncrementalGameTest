@@ -14,6 +14,7 @@ let hazardRemediation = 1;
 let combatSoldiers = 1;
 let deadToHazards = 0;
 let ongoingCombat = false; 
+let ScienceReward = 1;
 
 const hazardChanceBase = 0.01; // Base 10% chance of hazard damage
 
@@ -189,13 +190,19 @@ document.getElementById('startCombat').addEventListener('click', () => {
 
 function checkWinner() {
     if (!winnerDeclared) {
+        document.getElementById('science-reward').textContent = ScienceReward;
+
     if (playerSoldiers.length === 0 && enemySoldiers.length > 0) {
+
         setTimeout(() => {
             if (enemySoldiers.length === 0) {
                 addMessage("It's a draw! All soldiers are defeated. Soldiers dead to hazards: " + deadToHazards);
             }
             else {
                 addMessage("You Lost! Soldiers dead to hazards: " + deadToHazards);
+                if (ScienceReward > 1) {
+                    ScienceReward -= 1;
+                }
             }
         }, 200);
         winnerDeclared = true;
@@ -206,7 +213,9 @@ function checkWinner() {
                 addMessage("It's a draw! All soldiers are defeated. Soldiers dead to hazards: " + deadToHazards);
             }
             else {
-                addMessage("You win! Soldiers dead to hazards: " + deadToHazards);
+                addMessage("You win! Soldiers dead to hazards: " + deadToHazards+ ". You gain "+ScienceReward+" Science point.");
+                Science += ScienceReward;
+                ScienceReward += 1;
             }
         }, 200);
         winnerDeclared = true; 
@@ -222,7 +231,6 @@ function checkWinner() {
 if (winnerDeclared) {
     ongoingCombat = false;
     document.getElementById('startCombat').disabled = ongoingCombat;
-
 }
 }
 
