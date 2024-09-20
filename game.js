@@ -33,7 +33,7 @@ function updateDisplay() {
     document.getElementById('money-count').textContent = `Money: $${money.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.')}`;
     document.getElementById('Gun-count').textContent = `Gun: ${Gun}`;
     document.getElementById('Gun-cost').textContent = `Current Gun Price: $${GunPrice}`;
-    document.getElementById('marketing-level').textContent = `Marketing Level: ${marketingLevel} (Cost: $${50 * marketingLevel})`;
+    document.getElementById('marketing-level').textContent = `Marketing Level: ${marketingLevel} (Cost: $${50 * 2**marketingLevel})`;
 
     // Disable produce button if no Gun
     document.getElementById('produce-soldier').disabled = (Gun <= 0);
@@ -42,7 +42,7 @@ function updateDisplay() {
     document.getElementById('buy-Gun').disabled = (money < GunPrice);
 
     // Disable buy marketing button if not enough money
-    document.getElementById('buy-marketing').disabled = (money < 50 * marketingLevel);
+    document.getElementById('buy-marketing').disabled = (money < 50 * 2**marketingLevel);
 
     // Disable buy automation button if not enough money
     let automationCost = automationCostBase * Math.pow(automationCostScale, automationLevel);
@@ -126,10 +126,10 @@ function updateOddsButton() {
             positionTooltip(event);  // Update the position as the mouse moves
         });
         oddsButton.addEventListener('mouseleave', hideTooltip);
-    }else if (money < oddsCost) {
+    }else if (Science < oddsCost) {
         oddsButton.disabled = true;
         oddsButton.addEventListener('mousemove', (event) => {
-            showTooltip(event, "Not enough money");
+            showTooltip(event, "Not enough Science");
             positionTooltip(event);  // Update the position as the mouse moves
         });
         oddsButton.addEventListener('mouseleave', hideTooltip);
@@ -165,7 +165,7 @@ function sellSoldiers() {
     let sellRate = baseSellRate / (1 + soldierPrice * pricePenalty * 10);
 
     // Adjust sell rate based on marketing level
-    sellRate *= marketingLevel;
+    sellRate *= 2**marketingLevel;
 
     // Check if we have soldiers to sell
     if (soldiers > 0) {
@@ -216,7 +216,7 @@ function startGunPriceChange() {
 }
 
 function buyMarketing() {
-    let marketingCost = 50 * marketingLevel;
+    let marketingCost = 50 * 2**marketingLevel;
     if (money >= marketingCost) {
         money -= marketingCost;
         marketingLevel += 1;

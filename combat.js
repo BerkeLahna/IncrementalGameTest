@@ -13,6 +13,8 @@ let baseHP = 1; // Base HP for soldiers
 let hazardRemediation = 1;
 let combatSoldiers = 1;
 let deadToHazards = 0;
+let ongoingCombat = false; 
+
 const hazardChanceBase = 0.01; // Base 10% chance of hazard damage
 
 // Reset speed, combat, and hp for each combat
@@ -110,15 +112,27 @@ function drawCombat() {
     });
     
 
-    // Check for winner after each draw cycle
+    if (!winnerDeclared) {
     checkWinner();
-
     requestAnimationFrame(drawCombat); // Loop the animation
+
+    }
+    if (winnerDeclared) {
+    bullets.length = 0;
+
+    }
+
 }
 
 
 // Function to start combat
+
 document.getElementById('startCombat').addEventListener('click', () => {
+    if(!ongoingCombat){
+    ongoingCombat = true;
+
+    document.getElementById('startCombat').disabled = ongoingCombat;
+
     winnerDeclared = false; // Reset the winner flag
     deadToHazards = 0; // Reset dead to hazards count
     // Reset speed, combat stats, and HP
@@ -168,9 +182,9 @@ document.getElementById('startCombat').addEventListener('click', () => {
 
 
     // Start drawing the soldiers
-    drawCombat();
-});
+    drawCombat();}
 
+});
 
 
 function checkWinner() {
@@ -192,18 +206,24 @@ function checkWinner() {
                 addMessage("It's a draw! All soldiers are defeated. Soldiers dead to hazards: " + deadToHazards);
             }
             else {
-                addMessage("You win+"+vialIconPath +"+! Soldiers dead to hazards: " + deadToHazards);
+                addMessage("You win! Soldiers dead to hazards: " + deadToHazards);
             }
         }, 200);
         winnerDeclared = true; 
+
 
     } else if (playerSoldiers.length === 0 && enemySoldiers.length === 0) {
         addMessage("It's a draw!");
         winnerDeclared = true; 
 
+
     }
 }
+if (winnerDeclared) {
+    ongoingCombat = false;
+    document.getElementById('startCombat').disabled = ongoingCombat;
 
+}
 }
 
 // Upgrade logic
