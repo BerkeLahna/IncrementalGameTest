@@ -47,6 +47,7 @@
             <input type="number" id="war-bet-input" min="0" step="1" placeholder="Bet amount">
         <p>
         </p>
+        <div style="    display: flex;     flex-direction: column;   align-items: center;">
             <button 
                 onmouseenter="showDynamicTooltip(event, 0.4, 1.2)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()" onclick="startWar('low')">Low Risk - Low Reward
             </button>
@@ -57,7 +58,7 @@
                 onmouseenter="showDynamicTooltip(event, 0.95, 2)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()"  onclick="startWar('high')">High Risk - High Reward
             </button>
 
-        
+        </div>
             <p id="war-odds1">Better Odds:</p>
             <button id="war-odds" onclick="increaseOdds()">Increase Odds</button>
             
@@ -72,7 +73,7 @@
             <canvas id="combatCanvas" ></canvas>
             <div class="overlay">
                 <span id="science-reward">1</span>
-                <img src="vial.webp" alt="Your Image" width="20" height="20">
+                <img src="vial.webp" id="vial">
             </div>
         </div>
 

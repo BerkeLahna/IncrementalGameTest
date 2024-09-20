@@ -136,6 +136,10 @@ p {
 
 
 
+#vial{
+    width: 20px;
+    height: 20px;
+}
 
 
 
@@ -154,6 +158,54 @@ p {
 
 
 
+
+
+@media (min-width: 1300px) {
+
+    .overlay {
+
+        right: 5%;
+
+    }
+}
+
+
+@media (min-width: 1440px) {
+
+    .overlay {
+
+        right: 8%;
+
+    }
+}
+
+@media (min-width: 1640px) {
+
+    .overlay {
+
+        right: 14%;
+
+    }
+}
+
+
+@media (min-width: 1840px) {
+
+    .overlay {
+
+        right: 18%;
+
+    }
+}
+
+@media (min-width: 2040px) {
+
+    .overlay {
+
+        right: 20%;
+ 
+    }
+}
 
 
 
@@ -209,7 +261,13 @@ p {
         display: flex;
         flex-direction: column-reverse; /* New messages appear at the bottom */
     }
-    
+    #vial{
+        width: 15px;
+        height: 15px;
+    }
+    #science-reward{
+        font-size: 0.8em;
+    }
     .message-box p {
         margin: 0;
         line-height: 1.2;
