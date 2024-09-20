@@ -325,9 +325,4 @@ class Soldier {
     }
 }
 
-// Main game loop
-function gameLoop() {
-    updateSoldiers();
-    render();
-    requestAnimationFrame(gameLoop);
-}
+
