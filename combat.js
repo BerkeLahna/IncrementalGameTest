@@ -154,25 +154,34 @@ document.getElementById('startCombat').addEventListener('click', () => {
         playerSoldiers.push(new Soldier(x, y, speed, combat, soldierHP, true));
     }
     
+
+
+    difficultyFactor = ( ScienceReward - 5)**3;
     // Initialize enemy soldiers
-    for (let i = 0; i < Math.floor(Math.random() * 6) + combatSoldiers; i++) {
+    enemySoldierCount = Math.floor(Math.random() * 6) + combatSoldiers + difficultyFactor;
+    if (enemySoldierCount < 1) {
+        enemySoldierCount = 1; // Ensure at least 1 enemy soldier
+    }
+
+
+    for (let i = 0; i < enemySoldierCount; i++) {
         const x = canvas.width * 0.8 + Math.random() * (canvas.width * 0.2);  // X between 80% and 100% of canvas width
         const y = Math.random() * canvas.height;  // Y between 0 and canvas height
 
         // Ensure enemySpeed is within -5 and +5 of player's speed, but never less than 1
-        let enemySpeed = speed + Math.floor(Math.random() * 11) - 5; // Generate a value between -5 and +5
+        let enemySpeed = speed + Math.floor(Math.random() * 11) - 5 + difficultyFactor; // Generate a value between -5 and +5
         if (enemySpeed < 1) {
             enemySpeed = 1; // Ensure enemy speed is never below 1
         }
 
         // Ensure enemyCombat is within -5 and +5 of player's combat level, but never less than 1
-        let enemyCombat = combat + Math.floor(Math.random() * 11) - 5; // Generate a value between -5 and +5
+        let enemyCombat = combat + Math.floor(Math.random() * 11) - 5 + difficultyFactor;  // Generate a value between -5 and +5
         if (enemyCombat < 1) {
             enemyCombat = 1; // Ensure enemy combat level is never below 1
         }
 
         // Ensure enemyHP is within -5 and +5 of player's HP, but never less than 1
-        let enemyHP = baseHP + Math.floor(Math.random() * 11) - 5; // Generate a value between -5 and +5
+        let enemyHP = baseHP + Math.floor(Math.random() * 11) - 5 + difficultyFactor; // Generate a value between -5 and +5
         if (enemyHP < 1) {
             enemyHP = 1; // Ensure enemy HP is never below 1
         }
@@ -232,6 +241,7 @@ if (winnerDeclared) {
     ongoingCombat = false;
     document.getElementById('startCombat').disabled = ongoingCombat;
 }
+updateDisplay()
 }
 
 // Upgrade logic
