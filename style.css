@@ -86,6 +86,7 @@ p {
     }
 }
 
+
 #war-bet-input {
     padding: 10px; 
     border: 1px solid #ccc;
@@ -169,7 +170,7 @@ p {
     transition: background-color 0.3s ease;
 }
 
-.assign-btn:hover {
+.assign-btn:enabled:hover {
     background-color: #005f8a;
 }
 
@@ -177,7 +178,7 @@ p {
     background-color: #ff5c5c;
 }
 
-.remove-btn:hover {
+.remove-btn:enabled:hover {
     background-color: #cc4949;
 }
 
@@ -188,7 +189,14 @@ p {
     align-items: center;
 }
 
-
+.soldier-emoji {
+    transition: filter 0.3s ease;
+  }
+  
+  .greyed-out {
+    filter: grayscale(100%);
+  }
+  
 
 #vial{
     width: 20px;
@@ -268,7 +276,7 @@ p {
     transition: background-color 0.3s ease;
 }
 
-.start-btn:hover {
+.start-btn:enabled:hover {
     background-color: #218838;
 }
 

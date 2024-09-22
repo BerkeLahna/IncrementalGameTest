@@ -46,7 +46,17 @@
             <p id="war-status">Bet money and choose your risk level:</p>
             <input type="number" id="war-bet-input" min="0" step="1" placeholder="Bet amount">
         <p>
+            <div id="soldier-container">
+                Needed Soldiers:<p></p>
+                <span class="soldier-emoji">💂‍♂️</span>
+                <span class="soldier-emoji">💂‍♂️</span>
+                <span class="soldier-emoji">💂‍♂️</span>
+                <span class="soldier-emoji">💂‍♂️</span>
+                <span class="soldier-emoji">💂‍♂️</span>
+              </div>
+              
         </p>
+
         <div style="    display: flex;     flex-direction: column;   align-items: center;">
             <button 
                 onmouseenter="showDynamicTooltip(event, 0.4, 1.2)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()" onclick="startWar('low')">Low Risk - Low Reward

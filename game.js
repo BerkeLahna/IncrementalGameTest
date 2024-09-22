@@ -64,6 +64,7 @@ function updateDisplay() {
 
     document.getElementById('Science').innerHTML = `<img src="${vialIconPath}" alt="Technology" style="width:16px; vertical-align:middle;">: ${Science.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.')}`;
 
+    updateSoldierEmojis(soldiers, 5);
 
 
 
@@ -196,6 +197,7 @@ function sellSoldiers() {
         }
     }
     console.log(`Soldier Price: $${soldierPrice}, Sell Rate: ${sellRate}`);
+    
 
 }
 function buyGun() {
@@ -316,8 +318,12 @@ function addMessage(message) {
 
 function startWar(riskLevel) {
     const betAmount = parseFloat(document.getElementById('war-bet-input').value);
-    if (isNaN(betAmount) || betAmount <= 0 || betAmount > money) {
+    if (isNaN(betAmount) || betAmount <= 0) {
         addMessage("Invalid bet amount. ");
+        return;
+    }
+    if (betAmount > money) {
+        addMessage("You don't have enough money to place that bet. ");
         return;
     }
 
@@ -345,7 +351,22 @@ function startWar(riskLevel) {
 }
 
 
-
+// Function to update the display of soldier emojis based on available soldiers
+function updateSoldierEmojis(availableSoldiers, requiredSoldiers) {
+    const emojis = document.querySelectorAll('.soldier-emoji');
+    
+    emojis.forEach((emoji, index) => {
+      if (index < availableSoldiers) {
+        emoji.classList.remove('greyed-out'); // Show in full color
+      } else {
+        emoji.classList.add('greyed-out');    // Grey out if not enough soldiers
+      }
+    });
+  }
+  
+  // Example: Update emojis for available 3 out of 5 required soldiers
+  updateSoldierEmojis(0, 5);
+  
 
 
 
