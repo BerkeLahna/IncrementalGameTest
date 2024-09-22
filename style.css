@@ -280,12 +280,38 @@ p {
 
 
 
+
+
+
+
+
+@media (min-width: 767px) and (max-width: 1223px) {
+
+    .container {
+
+        min-width: 1200px;
+    
+    }
+    .message-box {
+         min-width: 1200px;
+
+    }
+   
+}
+
+
+
 @media (min-width: 1300px) {
 
     .overlay {
 
         right: 5%;
 
+    }
+    .container {
+
+        min-width: 1200px;
+    
     }
 }
 
@@ -448,4 +474,45 @@ p {
         font-weight: bold;
         color: #333;
     }
+
+    div button {
+        margin: 10px;
+        padding: 15px;
+        font-size: 0.8em;
+        border-radius: 40px;
+    }
+    
+}
+@media (max-width: 500px) {
+  
+
+    div button {
+        margin: 10px;
+        padding: 10px;
+        font-size: 0.7em;
+        border-radius: 40px;
+    }
+}
+
+@media (max-width: 400px) {
+  
+
+    div button {
+        margin: 5px;
+        padding: 10px;
+        font-size: 0.6em;
+        border-radius: 40px;
+    }
+    
+}
+@media (max-width: 350px) {
+  
+
+    div button {
+        margin: 2px;
+        padding: 5px;
+        font-size: 0.6em;
+        border-radius: 10px;
+    }
+    
 }
