@@ -1,4 +1,5 @@
 let generals = 0;
+let leftOffTimer = 0;
 
 let upgradeTimers = {
     speed: 0,
@@ -45,15 +46,13 @@ function assignGeneralsToUpgrade(type) {
         document.getElementById('generals-count').textContent = generals;
         document.getElementById(`${type}-general-count`).textContent = generalsAssigned[type];
 
-        // If already upgrading, adjust the timer dynamically
         if (upgradeTimers[type] > 0) {
             adjustTimerForNewGeneral(type);
-        } else {
-            // If the upgrade is frozen, restart the timer
-            if (generalsAssigned[type] === 1) { // Only start if this is the first general being assigned
-                startUpgradeTimer(type); // Start fresh if not already upgrading
-            }
+        } 
+        if (generalsAssigned[type] === 1) { // Only start if this is the first general being assigned
+            startUpgradeTimer(type,upgradeTimeBase[type] - upgradeTimers[type]); // Start fresh if not already upgrading
         }
+        
         initializeGeneralButtons();
     }
 }
@@ -93,6 +92,9 @@ initializeGeneralButtons();
 function freezeUpgrade(type) {
     // Clear the interval to stop the timer
     if (upgradeIntervals[type]) {
+        addMessage(upgradeTimers[type]*1000);
+        addMessage(upgradeTimeBase[type]*1000);
+
         clearInterval(upgradeIntervals[type]);
         delete upgradeIntervals[type]; // Remove interval reference
     }
@@ -100,14 +102,16 @@ function freezeUpgrade(type) {
 }
 
 
+
 let upgradeIntervals = {}; // Store intervals for each upgrade type
 
-function startUpgradeTimer(type) {
+function startUpgradeTimer(type, leftOffTimer = 0) {
     const baseDuration = upgradeTimeBase[type]; // Base duration for this upgrade level
     const generalsUsed = Math.max(generalsAssigned[type], 1); // Prevent division by zero
 
     // Calculate upgrade duration based on the number of generals
-    const upgradeDuration = baseDuration / generalsUsed;
+    const baseUpgradeDuration = baseDuration / generalsUsed;
+    const upgradeDuration = (baseDuration-leftOffTimer) / generalsUsed;
     upgradeTimers[type] = upgradeDuration;
 
     const progressElement = document.getElementById(`${type}-upgrade-progress`);
@@ -121,7 +125,7 @@ function startUpgradeTimer(type) {
         upgradeTimers[type] = remainingDuration;
 
         // Update circular progress
-        const progressPercent = ((upgradeDuration - remainingDuration) / upgradeDuration) * 100;
+        const progressPercent = ((baseUpgradeDuration - remainingDuration) / baseUpgradeDuration) * 100;
         progressElement.style.strokeDasharray = `${progressPercent}, 100`;
 
         // Update the text inside the progress circle

@@ -10,86 +10,161 @@
     <div id="tooltip" style="position: absolute; display: none; background-color: #333; color: #fff; padding: 5px; border-radius: 3px; font-size: 12px;"></div>
 
     <div id="message-box" class="message-box">
-        <!-- Messages will appear here -->
     </div>
+    <h1 id="trained-soldier-count"style="text-align: left; margin-left:2%;">Total Trained Soldiers:</h1>
+
     <div class="container">
-        <div id="game-content" class="content-box">
+        <div id="game-content" class="content-box" >
 
-            <h1>Soldier Factory</h1>
-            <p id="soldiers-count">Soldiers: 0</p>
-            <p id="money-count">Money: $0</p>
+            <div id="content-box-type2">
+                <h1>Camp</h1>
+                <hr>
+                <div id="content-box-type3">
+                    <p id="money-count">Money: $0</p>
+        
+                    <p id="soldiers-count">Soldiers: 0</p>
 
-            <button id="produce-soldier" onclick="produceSoldier(1)">Produce Soldier (Cost: 1 Gun)</button>
-            <p id="Gun-count">Gun: 10</p>
-            <p id="Gun-cost">Current Gun Price: $10</p>
+                    <button id="train-soldier" onclick="produceSoldier(1)">Train Soldier</button>
+                    <h3>Soldier Price: <input type="number" id="price-input"  min="0.1" step="0.1" onchange="updatePrice()"> </h3>
+                </div>
+            </div>
+            
+            <div id="content-box-type2">
+                <!-- <h3>Marketing:</h3> -->
+                <div id="content-box-type3">
+                    <button id="buy-marketing" onclick="buyMarketing()">Marketing</button>
+                    <span id="marketing-level">Level: </span>
+                    
+                </div>
+                <span id="marketing-cost">Cost: </span>
+            </div>
+            <div id="content-box-type2">
+                <h1  id="Gun-count">Guns</h1>
+                <div id="content-box-type3">
+            <!-- <p id="Gun-count">Guns: 10</p> -->
+            <p id="Gun-cost">Gun Price: $10</p>
             <button id="buy-Gun" onclick="buyGun()">Buy Gun</button>
-
-            <h3>Set Soldier Price:</h3>
-            <input type="number" id="price-input"  min="0.1" step="0.1" onchange="updatePrice()">
         </div>
-        <div id="upgrades-content" class="content-box">
-            <h1>Upgrades</h1>
-            <h3>Marketing:</h3>
-            <p id="marketing-level">Marketing Level: 1 (Cost: $50)</p>
-            <button id="buy-marketing" onclick="buyMarketing()">Buy Marketing</button>
+    </div>
+    <div id="content-box-type2">
 
             <h3>Automation:</h3>
-            <p id="buy-automation1"> Produces 1 soldier/sec</p>
-            <button id="buy-automation" onclick="buyAutomation()">Buy Automation (Cost: $100) - Produces 1 soldier/sec</button>
+            <div id="content-box-type3">
 
+                <p id="buy-automation1"> Trains 1 soldier/sec</p>
+                <button id="buy-automation" onclick="buyAutomation()">Buy Automation (Cost: $100) - Trains 1 soldier/sec</button>
+            </div>
+    </div>
+            
+        </div>
+        <!-- <div id="upgrades-content" class="content-box">
+            <h1>Upgrades</h1>
+          
+
+         
             <h3>Gun Upgrade:</h3>
             <p id="Gun-upgrade-level">Gun Upgrade Level: 1 (Cost: $200)</p>
             <button id="buy-Gun-upgrade" onclick="buyGunUpgrade()">Buy Gun Upgrade</button>
-        </div>
-        <div id="war-content" class="content-box">
-            <h1>Infiltration</h1>
-            <p id="war-status">Bet money and choose your risk level:</p>
-            <input type="number" id="war-bet-input" min="0" step="1" placeholder="Bet amount">
-        <p>
-            <div id="soldier-container">
-                Needed Soldiers:<p></p>
-                <span class="soldier-emoji">💂‍♂️</span>
-                <span class="soldier-emoji">💂‍♂️</span>
-                <span class="soldier-emoji">💂‍♂️</span>
-                <span class="soldier-emoji">💂‍♂️</span>
-                <span class="soldier-emoji">💂‍♂️</span>
-              </div>
-              
-        </p>
+        </div> -->
 
-        <div style="    display: flex;     flex-direction: column;   align-items: center;">
-            <button 
-                onmouseenter="showDynamicTooltip(event, 0.4, 1.2)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()" onclick="startWar('low')">Low Risk - Low Reward
-            </button>
-            <button 
-                onmouseenter="showDynamicTooltip(event, 0.7, 1.5)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()" onclick="startWar('medium')">Medium Risk - Medium Reward
-            </button>
-            <button 
-                onmouseenter="showDynamicTooltip(event, 0.95, 2)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()"  onclick="startWar('high')">High Risk - High Reward
-            </button>
 
-        </div>
-            <p id="war-odds1">Better Odds:</p>
-            <button id="war-odds" onclick="increaseOdds()">Increase Odds</button>
-            
-            <p>Science <span id="Science">0</span></p>
+        <div id="command-content" class="content-box">
+        
 
-        </div>
-        <div id="combat-content" class="content-box">
-            <h1>Combat</h1>
-            
-            <div style="position: relative;">
+            <div style="text-align: left;" id="content-box-type2">
+                <h3>Command Resources</h3>
+                <hr>
+                <p id="loyalty-level"> Loyalty:3</p>
+                <p id="loyalty-next-level"> Next Rank At 3,000 Trainings</p>
+                <div id="content-box-type3">
+                    <button id="control-systems-button" class="intel-button" onclick="levelControlSystems()">Control Systems</button>
+                    <span id="control-systems-text">0</span>
+                    <button id="command-post-button" class="intel-button" onclick="levelCommandPosts()">Command Posts</button>
+                    <span id="command-post-text">0 </span>
 
-            <canvas id="combatCanvas" ></canvas>
-            <div class="overlay">
-                <span id="science-reward">1</span>
-                <img src="vial.webp" id="vial">
+                </div>
+                <p id="ammunition-text">Ammunition: 2.000</p>
+                <p id="intel-text"> Intel: 0</p>
+
+                <div id="content-box-type3">
+                   
+                    
+                </div>
+            </div>
+
+            <div id="content-box-type2">
+                <h3 style="text-align: left; ">Projects</h3>
+                <hr>
+                <div id="content-box-type3">
+                    <div id="projectListTop" >
+                    </div>
+                    
+                </div>
             </div>
         </div>
+        
+        <div id="infiltration-content" class="content-box">
+            <div id="content-box-type2">
+
+                <h1>Infiltration</h1>
+                <hr>
+                <p id="war-status">Bet money and choose your risk level:</p>
+                <input type="number" id="war-bet-input" min="0" step="1" placeholder="Bet amount">
+                <p>
+                    <div id="soldier-container">
+                        Needed Soldiers:<p></p>
+                        <span class="soldier-emoji">💂‍♂️</span>
+                        <span class="soldier-emoji">💂‍♂️</span>
+                        <span class="soldier-emoji">💂‍♂️</span>
+                        <span class="soldier-emoji">💂‍♂️</span>
+                        <span class="soldier-emoji">💂‍♂️</span>
+                    </div>
+                    
+                </p>
+            </div>
+            <div id="content-box-type2">
+
+                    <button 
+                        onmouseenter="showDynamicTooltip(event, 0.4, 1.2)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()" onclick="startWar('low')">Low Risk - Low Reward
+                    </button>
+                    <button 
+                        onmouseenter="showDynamicTooltip(event, 0.7, 1.5)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()" onclick="startWar('medium')">Medium Risk - Medium Reward
+                    </button>
+                    <button 
+                        onmouseenter="showDynamicTooltip(event, 0.95, 2)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()"  onclick="startWar('high')">High Risk - High Reward
+                    </button>
+
+            </div>
+            <div id="content-box-type2">
+
+                <p id="war-odds1">Better Odds:</p>
+                <button id="war-odds" onclick="increaseOdds()">Increase Odds</button>
+                
+                <p>Science <span id="Science">0</span></p>
+
+            </div>
+
+        </div>
+
+        <div id="combat-content" class="content-box">
+            <div id="content-box-type2">
+                <h1>Combat</h1>
+                <hr>
+                <div style="position: relative;">
+
+                    <canvas id="combatCanvas" ></canvas>
+                    <div class="overlay">
+                        <span id="science-reward">1</span>
+                        <img src="vial.webp" id="vial">
+                    </div>
+                
+    </div>
         <button id="startCombat" class="start-btn">Start Combat</button>
+            </div>
 
         <div id="upgrade-panel">
             <h3>Soldier Upgrades</h3>
+            <hr>
             <div class="upgrade-container">
         
                 <div class="upgrade-item">
@@ -188,6 +263,7 @@
 </div>
 <div id="combat-content" class="content-box">
             <h1>Generals</h1>
+            <hr>
             <h3>Buy Generals</h3>
             <p>Generals: <span id="generals-count">0</span></p>
             <button id="buy-general" onclick="buyGeneral()">Buy General (Cost: 10 Science)</button>
@@ -206,7 +282,8 @@
     <script src="game.js"></script>
     <script src="combat.js"></script>
     <script src="generals.js"></script>
-
+    <script src="projects.js"></script>
+    <script src="command-resources.js"></script>
 
 </body>
 </html>

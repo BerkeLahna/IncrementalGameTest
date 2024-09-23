@@ -1,22 +1,36 @@
+let totalSoldiers = 0;
 let soldiers = 0;
-let money = 0;
-let Gun = 10;
-let GunPrice = 10;
-let automationLevel = 0; // Start with no automation
+let soldierPrice = 10;
 let marketingLevel = 1;
 let soldierProductionInterval = null;
+
+let money = 10000;
+
+let Gun = 10;
+let GunPrice = 10;
 let GunPriceInterval = null;
-let soldierPrice = 10;
-let GunUpgradeLevel = 1;
-let GunUpgradeCost = 200;
+// let GunUpgradeLevel = 1;
+// let GunUpgradeCost = 200;
+let GunCrate = 1;
+let GunPurchaseCount = 0;
+let automationLevel = 0; 
+let automationEfficiency = 1; 
+
+
 let odds = 0.0;
 let oddsCost = 2;
 let tooltipVisible = false;
-let Science = 1000;
+let Science = 10000;
 const vialIconPath = 'vial.webp';
 
 
-
+let loyalty = 10;
+let nextLoyalty = 1000;
+let nextLoyaltyRemaining = 1000;
+let controlSystemsLevel = 0;
+let commandPostsLevel = 0;
+let ammunition = 10000;
+let intel = 0;
 
 const baseSellRate = 20;  // Lower base rate
 const pricePenalty = 0.5; // Increase penalty for higher prices
@@ -24,19 +38,20 @@ const GunPriceChangeIntervalMin = 5000; // Minimum time for Gun price change (5 
 const GunPriceChangeIntervalMax = 10000; // Maximum time for Gun price change (10 seconds)
 const automationCostBase = 100; // Base cost for automation
 const automationCostScale = 1.5; // Cost scaling factor for each additional automation level
-const GunUpgradeBaseCost = 200; // Base cost for Gun upgrade
-const GunUpgradeScale = 2; // Scaling factor for Gun upgrade cost
+// const GunUpgradeBaseCost = 200; // Base cost for Gun upgrade
+// const GunUpgradeScale = 2; // Scaling factor for Gun upgrade cost
 
 function updateDisplay() {
     document.getElementById('soldiers-count').textContent = `Soldiers: ${soldiers}`;
     document.getElementById('price-input').value = `${soldierPrice}`;
     document.getElementById('money-count').textContent = `Money: $${money.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.')}`;
-    document.getElementById('Gun-count').textContent = `Gun: ${Gun}`;
-    document.getElementById('Gun-cost').textContent = `Current Gun Price: $${GunPrice}`;
-    document.getElementById('marketing-level').textContent = `Marketing Level: ${marketingLevel} (Cost: $${50 * 2**marketingLevel})`;
+    document.getElementById('Gun-count').textContent = `Guns: ${Math.ceil(Gun)}`;
+    document.getElementById('Gun-cost').textContent = `Gun Price: $${GunPrice}`;
+    document.getElementById('marketing-level').textContent = `Level: ${marketingLevel}`;
+    document.getElementById('marketing-cost').textContent = `(Cost: $${50 * 2**marketingLevel})`;
 
     // Disable produce button if no Gun
-    document.getElementById('produce-soldier').disabled = (Gun <= 0);
+    document.getElementById('train-soldier').disabled = (Gun <= 0);
 
     // Disable buy Gun button if not enough money
     document.getElementById('buy-Gun').disabled = (money < GunPrice);
@@ -48,12 +63,12 @@ function updateDisplay() {
     let automationCost = automationCostBase * Math.pow(automationCostScale, automationLevel);
     document.getElementById('buy-automation').disabled = (money < automationCost);
     document.getElementById('buy-automation').textContent = `Buy Automation (Cost: $${automationCost.toFixed(2)})`;
-    document.getElementById('buy-automation1').textContent = `Produces ${automationLevel} soldier(s)/sec`;
+    document.getElementById('buy-automation1').textContent = `Trains ${Math.ceil(automationLevel*automationEfficiency)} soldier(s)/sec`;
 
     // Disable buy Gun upgrade button if not enough money
-    let GunUpgradeCost = GunUpgradeBaseCost * Math.pow(GunUpgradeScale, GunUpgradeLevel);
-    document.getElementById('buy-Gun-upgrade').disabled = (money < GunUpgradeCost);
-    document.getElementById('Gun-upgrade-level').textContent = `Gun Upgrade Level: ${GunUpgradeLevel} (Cost: $${GunUpgradeCost})`;
+    // let GunUpgradeCost = GunUpgradeBaseCost * Math.pow(GunUpgradeScale, GunUpgradeLevel);
+    // document.getElementById('buy-Gun-upgrade').disabled = (money < GunUpgradeCost);
+    // document.getElementById('Gun-upgrade-level').textContent = `Gun Upgrade Level: ${GunUpgradeLevel} (Cost: $${GunUpgradeCost})`;
 
     document.getElementById('war-odds1').textContent = `Increased odds of winning by: ${odds*100}%`;
     document.getElementById('war-odds').innerHTML = `Increase odds of winning ${"Cost: " + oddsCost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.') + ' <img src="' + vialIconPath + '" alt="Technology" style="width:16px; vertical-align:middle;">'}`;
@@ -66,9 +81,20 @@ function updateDisplay() {
 
     updateSoldierEmojis(soldiers, 5);
 
+    document.getElementById('trained-soldier-count').textContent = `Total Trained Soldiers: ${totalSoldiers}`;
 
 
+    document.getElementById('loyalty-level').textContent = `Loyalty: ${loyalty}`;
+    document.getElementById('loyalty-next-level').textContent = `Next Rank At ${Math.round(nextLoyaltyRemaining).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} Trainings`;
+    
+    document.getElementById('control-systems-button').disabled = (loyalty < 1)
+    document.getElementById('command-post-button').disabled = (loyalty < 1)
 
+    document.getElementById('control-systems-text').textContent = `${controlSystemsLevel}`;
+    document.getElementById('command-post-text').textContent = `${commandPostsLevel}`;
+
+    document.getElementById('ammunition-text').textContent = `Ammunition: ${Math.round(ammunition).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} / ${Math.round(commandPostsLevel*1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+    document.getElementById('intel-text').textContent = `Intel: ${intel}`;
 
 }
 
@@ -154,10 +180,20 @@ function produceSoldier(amount) {
     for (let i = 0; i < amount; i++) {
         if (Gun > 0) {
             soldiers += 1;
+            totalSoldiers += 1;
+            if (nextLoyaltyRemaining > 1) {
+            nextLoyaltyRemaining -= 1;
+            }
+            else {
+                nextLoyalty *= 2;
+                nextLoyaltyRemaining = nextLoyalty;
+                loyalty += 1;
+            }
             Gun -= 1;
             updateDisplay();
         }
     }
+
 }
 
 
@@ -203,7 +239,9 @@ function sellSoldiers() {
 function buyGun() {
     if (money >= GunPrice) {
         money -= GunPrice;
-        Gun += 2**(GunUpgradeLevel-1);
+        GunPurchaseCount += 1;
+        // Gun += 2**(GunUpgradeLevel-1);
+        Gun += GunCrate;
         updateDisplay();
     }
 }
@@ -246,17 +284,17 @@ function buyAutomation() {
 }
 
 function startAutomation() {
-    soldierProductionInterval = setInterval(() => produceSoldier(automationLevel ), 1000);
+    soldierProductionInterval = setInterval(() => produceSoldier(automationLevel*automationEfficiency ), 1000);
 }
 
-function buyGunUpgrade() {
-    if (money >= GunUpgradeCost) {
-        money -= GunUpgradeCost;
-        GunUpgradeCost *= 2.5;
-        GunUpgradeLevel += 1;
-        updateDisplay();
-    }
-}
+// function buyGunUpgrade() {
+//     if (money >= GunUpgradeCost) {
+//         money -= GunUpgradeCost;
+//         GunUpgradeCost *= 2.5;
+//         GunUpgradeLevel += 1;
+//         updateDisplay();
+//     }
+// }
 function startSelling() {
     soldierSellInterval = setInterval(sellSoldiers, 500); // Sell soldiers every second
 }
@@ -367,7 +405,6 @@ function updateSoldierEmojis(availableSoldiers, requiredSoldiers) {
   // Example: Update emojis for available 3 out of 5 required soldiers
   updateSoldierEmojis(0, 5);
   
-
 
 
 

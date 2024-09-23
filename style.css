@@ -20,6 +20,36 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+#content-box-type2{
+    margin-top: -15px;
+    margin-bottom: 20px;
+    background-color: #ffffff40;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding-top: 5px;
+}
+
+#content-box-type2 p{
+    font-size: 0.8em;
+   
+}
+
+#content-box-type3{
+    justify-content: space-between;
+    align-items: center;
+}
+
+.intel-button{
+    font-size: 0.8em;
+    padding: 10px 10px;
+    margin: 5px;
+}
+
+hr{
+    margin-top: -15px;
+}
+
 h1 {
     font-size: 24px;
     margin-bottom: 20px;
@@ -281,8 +311,60 @@ p {
 }
 
 
+#command-content{
+    min-width: 400px;
+}
 
 
+#projectListTop {
+    /* padding: 20px; */
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    margin-left: -5px;
+    margin-right: 15px;
+
+}
+
+/* Style for project buttons */
+.projectButton {
+    background-color: #0008ffae;
+    color: white;
+    border: 2px solid black;
+    margin-bottom: -10px;
+    /* padding: 10px 20px; */
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: left;
+    width: 100%;
+    /* max-width: 400px; */
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.projectButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.projectButton span {
+    font-weight: bold;
+    display: block;
+}
+
+.projectButton div {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #f8f9fa;
+}
+
+
+.blinking {
+    animation: blink 1s linear infinite;
+}
 
 
 
@@ -489,6 +571,9 @@ p {
         font-size: 0.8em;
         border-radius: 40px;
     }
+    #command-content{
+        min-width: 200px;
+    }
     
 }
 @media (max-width: 500px) {
@@ -524,3 +609,8 @@ p {
     }
     
 }
+
+
+
+
+
