@@ -2,6 +2,7 @@ let totalSoldiers = 0;
 let soldiers = 0;
 let soldierPrice = 10;
 let marketingLevel = 1;
+let marketingEfficiency = 1;
 let soldierProductionInterval = null;
 
 let money = 10000;
@@ -9,13 +10,14 @@ let money = 10000;
 let Gun = 10;
 let GunPrice = 10;
 let GunPriceInterval = null;
+let GunPriceFactor = 1.0;
 // let GunUpgradeLevel = 1;
 // let GunUpgradeCost = 200;
 let GunCrate = 1;
 let GunPurchaseCount = 0;
 let automationLevel = 0; 
 let automationEfficiency = 1; 
-
+let automationBoost = 0;
 
 let odds = 0.0;
 let oddsCost = 2;
@@ -43,7 +45,6 @@ const automationCostScale = 1.5; // Cost scaling factor for each additional auto
 
 function updateDisplay() {
     document.getElementById('soldiers-count').textContent = `Soldiers: ${soldiers}`;
-    document.getElementById('price-input').value = `${soldierPrice}`;
     document.getElementById('money-count').textContent = `Money: $${money.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&.')}`;
     document.getElementById('Gun-count').textContent = `Guns: ${Math.ceil(Gun)}`;
     document.getElementById('Gun-cost').textContent = `Gun Price: $${GunPrice}`;
@@ -198,8 +199,19 @@ function produceSoldier(amount) {
 
 
 function updatePrice() {
-    soldierPrice = parseFloat(document.getElementById('price-input').value);
-    updateDisplay();
+    // document.getElementById('price-input').value = `${soldierPrice}`;
+
+    // soldierPrice = parseFloat(document.getElementById('price-input').value);
+    // updateDisplay();
+
+    const newPrice = parseFloat(document.getElementById('price-input').value);
+    
+    // Only update the display if the new price is different from the current price
+    if (newPrice !== soldierPrice) {
+        soldierPrice = newPrice;
+        document.getElementById('price-input').textContent = `Current Price: ${soldierPrice.toFixed(1)}`;
+
+    }
 }
 
 function sellSoldiers() {
@@ -207,7 +219,7 @@ function sellSoldiers() {
     let sellRate = baseSellRate / (1 + soldierPrice * pricePenalty * 10);
 
     // Adjust sell rate based on marketing level
-    sellRate *= 2**marketingLevel;
+    sellRate *= (2**marketingLevel)*marketingEfficiency;
 
     // Check if we have soldiers to sell
     if (soldiers > 0) {
@@ -247,7 +259,7 @@ function buyGun() {
 }
 
 function updateGunPrice() {
-    GunPrice = Math.floor(Math.random() * 26) + 5; // Randomize price between $5 and $30
+    GunPrice = (Math.floor(Math.random() * 26) + 5)*GunPriceFactor; // Randomize price between $5 and $30
     // console.log(`New Gun Price: $${GunPrice}`);
     addMessage(`New Gun Price: $${GunPrice}`);
     updateDisplay();
