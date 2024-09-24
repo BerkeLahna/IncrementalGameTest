@@ -85,6 +85,10 @@ function updateDisplay() {
     document.getElementById('trained-soldier-count').textContent = `Total Trained Soldiers: ${totalSoldiers}`;
 
 
+
+}
+
+function updateCommandResourcesDisplay(){
     document.getElementById('loyalty-level').textContent = `Loyalty: ${loyalty}`;
     document.getElementById('loyalty-next-level').textContent = `Next Rank At ${Math.round(nextLoyaltyRemaining).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} Trainings`;
     
@@ -96,8 +100,9 @@ function updateDisplay() {
 
     document.getElementById('ammunition-text').textContent = `Ammunition: ${Math.round(ammunition).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} / ${Math.round(commandPostsLevel*1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
     document.getElementById('intel-text').textContent = `Intel: ${intel}`;
-
 }
+
+
 
 let tooltipTimeout;
 

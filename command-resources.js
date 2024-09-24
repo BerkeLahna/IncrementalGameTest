@@ -24,7 +24,8 @@ function levelCommandPosts(){
         commandPostsLevel++;
         loyalty--;
     }
-    updateDisplay();
+    // updateDisplay();
+    updateCommandResourcesDisplay();
 }
 
 
@@ -70,7 +71,8 @@ function calculateOperations(){
         ammunition = commandPostsLevel*1000;
         }
 
-    updateDisplay();
+    // updateDisplay();
+    updateCommandResourcesDisplay();
 
 }
 
