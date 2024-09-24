@@ -153,6 +153,6 @@ function blink(element) {
     }, 2000);
 }
 // manageProjects();
-setInterval(manageProjects, 5000);
+setInterval(manageProjects, 50);
 setInterval(calculateOperations, 10);
 setInterval(calculateCreativity, 10);
