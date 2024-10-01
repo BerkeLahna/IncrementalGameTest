@@ -16,6 +16,7 @@ let GunPriceFactor = 1.0;
 let GunCrate = 1;
 let GunPurchaseCount = 0;
 let automationLevel = 0; 
+let automation2Level = 0;
 let automationEfficiency = 1; 
 let automationBoost = 0;
 
@@ -40,6 +41,8 @@ const GunPriceChangeIntervalMin = 5000; // Minimum time for Gun price change (5 
 const GunPriceChangeIntervalMax = 10000; // Maximum time for Gun price change (10 seconds)
 const automationCostBase = 100; // Base cost for automation
 const automationCostScale = 1.5; // Cost scaling factor for each additional automation level
+const automation2CostBase = 10000; // Base cost for automation
+const automation2CostScale = 1.5; // Cost scaling factor for each additional automation level
 // const GunUpgradeBaseCost = 200; // Base cost for Gun upgrade
 // const GunUpgradeScale = 2; // Scaling factor for Gun upgrade cost
 
@@ -65,7 +68,13 @@ function updateDisplay() {
     document.getElementById('buy-automation').disabled = (money < automationCost);
     document.getElementById('buy-automation').textContent = `Buy Automation (Cost: $${automationCost.toFixed(2)})`;
     document.getElementById('buy-automation1').textContent = `Trains ${Math.ceil(automationLevel*automationEfficiency)} soldier(s)/sec`;
+   
+    let automation2Cost = automation2CostBase * Math.pow(automation2CostScale, automation2Level);
 
+    document.getElementById('buy-automation3').disabled = (money < automation2Cost);
+    document.getElementById('buy-automation3').textContent = `Buy Automation (Cost: $${automation2Cost.toFixed(2)})`;
+    document.getElementById('buy-automation2').textContent = `Trains ${Math.ceil(automation2Level*automationEfficiency)} soldier(s)/sec`;
+ 
     // Disable buy Gun upgrade button if not enough money
     // let GunUpgradeCost = GunUpgradeBaseCost * Math.pow(GunUpgradeScale, GunUpgradeLevel);
     // document.getElementById('buy-Gun-upgrade').disabled = (money < GunUpgradeCost);
@@ -300,8 +309,22 @@ function buyAutomation() {
     }
 }
 
+function buyAutomation2() {
+    let automation2Cost = automation2CostBase * Math.pow(automation2CostScale, automation2Level);
+    if (money >= automation2Cost) {
+        money -= automation2Cost;
+        automation2Level += 1;
+        updateDisplay();
+
+        if (soldierProductionInterval) {
+            clearInterval(soldierProductionInterval);
+        }
+        startAutomation();
+    }
+}
+
 function startAutomation() {
-    soldierProductionInterval = setInterval(() => produceSoldier(automationLevel*automationEfficiency ), 1000);
+    soldierProductionInterval = setInterval(() => produceSoldier((automationLevel + automation2Level*5)*automationEfficiency ), 1000);
 }
 
 // function buyGunUpgrade() {
