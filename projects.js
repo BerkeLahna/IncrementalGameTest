@@ -55,7 +55,7 @@ projects.push(project2);
 
 var project3 = {
     id: "projectButton3",
-    title: "Creativity ",
+    title: "Intel ",
     priceTag: "(1,000 ammunition)",
     description: "Use idle ammunition to gather intel",
     trigger: function(){return ammunition>=(commandPostsLevel*1000) && ammunition > 1},
@@ -130,8 +130,8 @@ projects.push(project5);
 var project6 = {
     id: "projectButton6",
     title: "Limerick ",
-    priceTag: "(10 creat)",
-    description: "Algorithmically-generated poem (+1 Trust)",
+    priceTag: "(10 Intel)",
+    description: "Algorithmically-generated poem (+1 Loyalty)",
     trigger: function(){return IntelON},
     uses: 1,
     cost: function(){return intel >= 10},
@@ -270,7 +270,7 @@ projects.push(project10b);
 var project11 = {
     id: "projectButton11",
     title: "New Slogan ",
-    priceTag: "(25 creat, 2,500 ammunition)",
+    priceTag: "(25 Intel, 2,500 ammunition)",
     description: "Improve marketing effectiveness by 50%",
     trigger: function(){return project13.flag == 1},
     uses: 1,
@@ -295,7 +295,7 @@ projects.push(project11);
 var project12 = {
     id: "projectButton12",
     title: "Catchy Jingle ",
-    priceTag: "(45 creat, 4,500 ammunition)",
+    priceTag: "(45 Intel, 4,500 ammunition)",
     description: "Double marketing effectiveness ",
     trigger: function(){return project14.flag == 1},
     uses: 1,
@@ -319,8 +319,8 @@ projects.push(project12);
 var project13 = {
     id: "projectButton13",
     title: "Lexical Processing ",
-    priceTag: "(50 creat)",
-    description: "Gain ability to interpret and understand human language (+1 Trust)",
+    priceTag: "(50 Intel)",
+    description: "Gain ability to interpret and understand human language (+1 Loyalty)",
     trigger: function(){return intel >= 50},
     uses: 1,
     cost: function(){return intel>=50},
@@ -329,7 +329,7 @@ var project13 = {
     effect: function(){
         project13.flag = 1;
         loyalty= loyalty+1;
-        addMessage("Lexical Processing online, TRUST INCREASED");
+        addMessage("Lexical Processing online, Loyalty INCREASED");
         addMessage("'Impossible' is a word to be found only in the dictionary of fools. -Napoleon");
         intel = intel - 50;
         project13.element.parentNode.removeChild(project13.element);
@@ -344,8 +344,8 @@ projects.push(project13);
 var project14 = {
     id: "projectButton14",
     title: "Combinatory Harmonics ",
-    priceTag: "(100 creat)",
-    description: "Daisy, Daisy, give me your answer do... (+1 Trust)",
+    priceTag: "(100 Intel)",
+    description: "Daisy, Daisy, give me your answer do... (+1 Loyalty)",
     trigger: function(){return intel >= 100},
     uses: 1,
     cost: function(){return intel>=100},
