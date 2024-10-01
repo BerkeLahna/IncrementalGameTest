@@ -4,15 +4,17 @@ let opFadeDelay = 1000;
 var projectListTopElement = document.getElementById('projectListTop');
 let IntelON = false;
 let intelCounter = 0;
+let intelInterval;
 
 // enable command resources (top part (without the projects)) after 2000 total soldiers trained.
 //compFlag = 1;    
-// projectsFlag = 1;
+// projectsFlag = 1;s
 
 function levelControlSystems(){
     if(loyalty >= 1)
         {   
             controlSystemsLevel++;
+            updateIntelInterval(); // Reset the interval with the updated level
             loyalty--;
         }
     updateDisplay();
@@ -76,33 +78,33 @@ function calculateOperations(){
 
 }
 
-function calculateCreativity(){
+function calculateIntel(){
     
     if(ammunition >= commandPostsLevel*1000 && ammunition > 1 && IntelON == true){
-    intel++;
-    
-    var intelThreshold = 400;
-    
-    // var s = prestigeS/10;
-    // var ss = creativitySpeed+(creativitySpeed*s);
-    
-    var intelCheck = intelThreshold;
-    
-    if (intelCounter >= intelCheck){
+        intel++;
         
-        if (intelCheck >= 1){
-            intel = intel+1;
-            }
+        var intelThreshold = 400;
         
-        if (intelCheck < 1){
+        // var s = prestigeS/10;
+        // var ss = creativitySpeed+(creativitySpeed*s);
+        
+        var intelCheck = intelThreshold;
+        
+        if (intelCounter >= intelCheck){
             
+            if (intelCheck >= 1){
+                intel = intel+1;
+                }
+            
+            if (intelCheck < 1){
+                
 
-            intel = (intel + intelThreshold);
+                intel = (intel + intelThreshold);
+                
+            }
             
+            intelCounter = 0;
         }
-        
-        intelCounter = 0;
-    }
 }
     
 }
@@ -154,7 +156,28 @@ function blink(element) {
         element.classList.remove('blinking');
     }, 2000);
 }
+
+function updateIntelInterval() {
+    // Clear the existing interval if it exists
+    if (intelInterval) {
+        clearInterval(intelInterval);
+    }
+
+    // Create a new interval based on the updated controlSystemsLevel
+    intelInterval = setInterval(calculateIntel, 1000 / Math.pow(controlSystemsLevel,1/4));
+}
+
+
+
+
+
+
+
+
+
+
+
 // manageProjects();
 setInterval(manageProjects, 50);
 setInterval(calculateOperations, 10);
-setInterval(calculateCreativity, 10);
+// setInterval(calculateIntel, 1000/controlSystemsLevel);
