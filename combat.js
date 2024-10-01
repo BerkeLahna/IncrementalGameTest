@@ -1,6 +1,8 @@
 // Combat simulation
 
 const canvas = document.getElementById('combatCanvas');
+canvas.width = 345; // Set canvas width
+canvas.height = 690; // Set canvas height
 const context = canvas.getContext('2d');
 
 // Soldier stats and upgrades
