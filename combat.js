@@ -11,7 +11,7 @@ let baseSpeed = 1;
 let baseCombat = 1;
 let baseHP = 1; // Base HP for soldiers
 let hazardRemediation = 1;
-let combatSoldiers = 1;
+let combatSoldiers = 300;
 let deadToHazards = 0;
 let ongoingCombat = false; 
 let ScienceReward = 1;
@@ -205,10 +205,10 @@ function checkWinner() {
 
         setTimeout(() => {
             if (enemySoldiers.length === 0) {
-                addMessage("It's a draw! All soldiers are defeated. Soldiers dead to hazards: " + deadToHazards);
+                displayEndMessage("It's a draw! All soldiers are defeated. Soldiers dead to hazards: " + deadToHazards,"It's a draw!");
             }
             else {
-                addMessage("You Lost! Soldiers dead to hazards: " + deadToHazards);
+                displayEndMessage("You Lost! Soldiers dead to hazards: " + deadToHazards,"Defeat!");
                 if (ScienceReward > 1) {
                     ScienceReward -= 1;
                 }
@@ -219,10 +219,10 @@ function checkWinner() {
     } else if (enemySoldiers.length === 0 && playerSoldiers.length > 0) {
         setTimeout(() => {
             if (playerSoldiers.length === 0) {
-                addMessage("It's a draw! All soldiers are defeated. Soldiers dead to hazards: " + deadToHazards);
+                displayEndMessage("It's a draw! All soldiers are defeated. Soldiers dead to hazards: " + deadToHazards,"It's a draw!");
             }
             else {
-                addMessage("You win! Soldiers dead to hazards: " + deadToHazards+ ". You gain "+ScienceReward+" Science point.");
+                displayEndMessage("You win! Soldiers dead to hazards: " + deadToHazards+ ". You gain "+ScienceReward+" Science point.","Victory!");
                 Science += ScienceReward;
                 ScienceReward += 1;
             }
@@ -231,7 +231,7 @@ function checkWinner() {
 
 
     } else if (playerSoldiers.length === 0 && enemySoldiers.length === 0) {
-        addMessage("It's a draw!");
+        displayEndMessage("It's a draw!","It's a draw!");
         winnerDeclared = true; 
 
 
@@ -243,6 +243,19 @@ if (winnerDeclared) {
 }
 updateDisplay()
 }
+
+
+function displayEndMessage(message1, message2) {
+    addMessage(message1);
+    context.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+    context.font = '20px Arial'; // Set font for the message
+    context.fillStyle = 'rgba(255, 255, 255, 0.6)'; // Set text color with 70% opacity (semi-transparent white)
+    context.textAlign = 'center'; // Center the text horizontally
+    context.fillText(message2, canvas.width / 2, canvas.height / 2); // Display message in the center
+}
+
+
+
 
 // Upgrade logic
 function upgrade(type) {
